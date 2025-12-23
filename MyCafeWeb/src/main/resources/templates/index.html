@@ -15,6 +15,14 @@
 	<a href="/new">
 	    <button>＋ 新しい喫茶店を登録する</button>
 	</a>
+
+    <ul>
+        <li th:each="cafe, stat : ${cafes}">
+            <a th:href="@{/cafe/{id}(id=${stat.index})}" 
+            th:text="${cafe.name} + ' (★' + ${cafe.rating} + ')' ">
+            </a>
+        </li>
+    </ul>
     
 </body>
 </html>

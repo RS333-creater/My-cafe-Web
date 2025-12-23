@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${cafe.name} + ' の詳細'">詳細</title>
+</head>
+<body>
+    <h1 th:text="${cafe.name}">店名</h1>
+    <p>住所：<span th:text="${cafe.address}">住所</span></p>
+    <p>評価：<span th:text="'★' + ${cafe.rating}">★</span></p>
+
+    <hr>
+    <h2>訪問記録</h2>
+    <div th:if="${#lists.isEmpty(cafe.visitRecords)}">
+        <p>まだ訪問記録がありません。</p>
+    </div>
+    
+    <div th:each="record : ${cafe.visitRecords}">
+        <p><strong>日付：</strong> <span th:text="${record.visitDate}">2025-01-01</span></p>
+        <p><strong>コメント：</strong> <span th:text="${record.comment}">おいしかった</span></p>
+        
+        <h4>注文したもの：</h4>
+        <ul>
+            <li th:each="item : ${record.orderedItems}" th:text="${item.details}">コーヒー</li>
+        </ul>
+        <hr style="border: 0.5px dashed #ccc;">
+    </div>
+    <hr>
+    <h3>今日の訪問を記録する</h3>
+    <form th:action="@{/cafe/{id}/record(id=${id})}" method="post">
+    <div>
+        <label>感想・メモ：</label><br>
+        <textarea name="comment" rows="3" cols="40" required></textarea>
+    </div>
+
+    <div style="background: #f9f9f9; padding: 10px; margin-top: 10px; border: 1px solid #ddd;">
+        <h4>注文したメニュー（1つだけ登録可）</h4>
+        <label>種類：</label>
+        <select name="menuType">
+            <option value="none">なし</option>
+            <option value="drink">飲み物</option>
+            <option value="food">食べ物</option>
+        </select>
+        <br>
+        名前：<input type="text" name="itemName"><br>
+        価格：<input type="number" name="itemPrice" value="0">
+    </div>
+    
+    <button type="submit" style="margin-top:10px;">訪問を記録する</button>
+</form>
+
+    <br>
+        <a th:href="@{/cafe/{id}/edit(id=${id})}">この情報を編集する</a> | 
+    <form th:action="@{/cafe/{id}/delete(id=${id})}" method="post" style="display:inline;">
+        <button type="submit" onclick="return confirm('本当に削除しますか？')">この喫茶店を削除する</button>
+    </form>
+    <a href="/">一覧に戻る</a>
+</body>
+</html>
