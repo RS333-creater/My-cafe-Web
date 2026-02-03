@@ -2,26 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>情報を編集</title>
+    <title>喫茶店情報の編集</title>
 </head>
 <body>
     <h1>喫茶店情報の編集</h1>
+    
     <form th:action="@{/cafe/{id}/update(id=${id})}" method="post">
         <div>
-            <label>店名:</label>
+            <label>店名：</label>
             <input type="text" name="name" th:value="${cafe.name}" required>
         </div>
         <div>
-            <label>住所:</label>
+            <label>住所：</label>
             <input type="text" name="address" th:value="${cafe.address}">
         </div>
         <div>
-            <label>評価:</label>
+            <label>評価：</label>
             <input type="number" name="rating" th:value="${cafe.rating}" min="1" max="5">
         </div>
-        <button type="submit">更新する</button>
+        <br>
+        <button type="submit">更新保存</button>
+        <a th:href="@{/cafe/{id}(id=${id})}">キャンセル</a>
     </form>
-    <br>
-    <a th:href="@{/cafe/{id}(id=${id})}">キャンセル</a>
 </body>
 </html>

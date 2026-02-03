@@ -50,10 +50,18 @@
 </form>
 
     <br>
-        <a th:href="@{/cafe/{id}/edit(id=${id})}">この情報を編集する</a> | 
-    <form th:action="@{/cafe/{id}/delete(id=${id})}" method="post" style="display:inline;">
-        <button type="submit" onclick="return confirm('本当に削除しますか？')">この喫茶店を削除する</button>
+    <div style="margin-top: 20px; padding: 10px; background-color: #f0f0f0;">
+    <h3>管理メニュー</h3>
+    
+    <a th:href="@{/cafe/{id}/edit(id=${id})}">
+        <button type="button">情報を編集する</button>
+    </a>
+
+    <form th:action="@{/cafe/{id}/delete(id=${id})}" method="post" style="display: inline;">
+        <button type="submit" onclick="return confirm('本当にこの喫茶店を削除しますか？')">この喫茶店を削除する</button>
     </form>
+    </div>
+    <br>
     <a href="/">一覧に戻る</a>
 </body>
 </html>
